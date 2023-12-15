@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Calculadora de Áreas</title>
 </head>
 <body>
-    <script src="./app.js"></script>
+    <div class="contenedor">
+        <h1>Calculadora de Áreas</h1>
+        <label for="operacion">Seleccione la operación:</label>
+        <select id="operacion">
+            <option value="cuadrado">Calcular área de un cuadrado</option>
+            <option value="rectangulo">Calcular área de un rectángulo</option>
+        </select>
+        <div id="inputs"></div>
+        <button id="calcularBtn" onclick="calcularArea()">Calcular</button>
+        <div id="resultado"></div>
+        <div id="historial"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
