@@ -24,49 +24,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('calcularBtn').addEventListener('click', function () {
         const selectedOption = operacionSelect.value;
-        let resultado = 'ERROR';
+        new Promise((resolve) => {
+            setTimeout(() => {
+                let resultado = 'ERROR';
 
-        if (selectedOption === 'cuadrado') {
-            const lado = parseFloat(document.getElementById('lado').value);
-            resultado = lado * lado;
-        } else if (selectedOption === 'rectangulo') {
-            const base = parseFloat(document.getElementById('base').value);
-            const altura = parseFloat(document.getElementById('altura').value);
-            resultado = base * altura;
-        }
+                if (selectedOption === 'cuadrado') {
+                    const lado = parseFloat(document.getElementById('lado').value);
+                    resultado = lado * lado;
+                } else if (selectedOption === 'rectangulo') {
+                    const base = parseFloat(document.getElementById('base').value);
+                    const altura = parseFloat(document.getElementById('altura').value);
+                    resultado = base * altura;
+                }
 
-        // Mostrar resultado en la interfaz
-        resultadoDiv.textContent = 'El resultado es: ' + resultado;
+                // Mostrar resultado en la interfaz
+                resultadoDiv.textContent = 'El resultado es: ' + resultado;
 
-        // Agregar operación al historial y actualizar localStorage
-        agregarAlHistorial(selectedOption, resultado);
+                // Agregar operación al historial y actualizar localStorage
+                agregarAlHistorial(selectedOption, resultado);
 
-        // Actualizar el historial en la interfaz después de agregar una nueva operación
-        cargarHistorial();
+                // Actualizar el historial en la interfaz después de agregar una nueva operación
+                cargarHistorial();
+
+                // Resolvemos la promesa después de simular el cálculo
+                resolve();
+            }, 1000); // Simulamos una espera de 1 segundo
+        });
     });
-
+     
     function cargarHistorial() {
-        // Obtener historial desde localStorage
-        const historial = JSON.parse(localStorage.getItem('historial')) || [];
-
-        // Mostrar historial en la interfaz
+        // Intenta cargar desde localStorage primero
+        const historialGuardado = JSON.parse(localStorage.getItem('historial'));
+        
+        if (historialGuardado && historialGuardado.length > 0) {
+            mostrarHistorialEnInterfaz(historialGuardado);
+        } else {
+            // Si no hay datos en localStorage, carga desde la API
+            fetch('http://localhost:3001/historial')
+                .then(response => response.json())
+                .then(data => {
+                    mostrarHistorialEnInterfaz(data.historial);
+                    
+                    // Guardar en localStorage para futuras visitas
+                    localStorage.setItem('historial', JSON.stringify(data.historial));
+                })
+                .catch(error => {
+                    console.error('Error al cargar el historial:', error);
+                });
+        }
+    }
+    
+    function mostrarHistorialEnInterfaz(historial) {
         historialDiv.innerHTML = '<h2>Historial</h2>';
         historial.forEach(op => {
             historialDiv.innerHTML += `<p>${op.operacion}: ${op.resultado}</p>`;
         });
     }
-
+    
     function agregarAlHistorial(operacion, resultado) {
-        // Obtener historial desde localStorage
-        const historial = JSON.parse(localStorage.getItem('historial')) || [];
-
-        // Agregar nueva operación al historial
-        historial.push({ operacion, resultado });
-
-        // Actualizar localStorage con el nuevo historial
-        localStorage.setItem('historial', JSON.stringify(historial));
+        fetch('http://localhost:3001/historial', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ operacion, resultado })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Operación agregada al historial:', data);
+    
+            // Obtener el historial actualizado del localStorage y agregar la nueva operación
+            const historialGuardado = JSON.parse(localStorage.getItem('historial')) || [];
+            historialGuardado.push(data);
+    
+            // Actualizar el localStorage
+            localStorage.setItem('historial', JSON.stringify(historialGuardado));
+        })
+        .catch(error => {
+            console.error('Error al agregar la operación al historial:', error);
+        });
     }
-});
+    });
 
 document.addEventListener('DOMContentLoaded', function () {
     // Resto del código...
@@ -82,3 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.removeItem('historial');
     }
 });
+
+// Importa el método necesario (por ejemplo, 'multiply' para multiplicar)
+// Si estás usando un sistema de módulos (como con Webpack o ES6 modules):
+// import { multiply } from 'lodash';
+
+// Si lo estás incluyendo directamente a través del CDN, simplemente puedes usarlo directamente:
+const resultado = _.multiply(5, 3);  // Esto devolverá 15 (5 * 3)
+console.log(resultado);
+
+
+

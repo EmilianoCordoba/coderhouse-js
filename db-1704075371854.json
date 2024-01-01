@@ -1,0 +1,14 @@
+{
+  "historial": [
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 1
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 2
+    }
+  ]
+}

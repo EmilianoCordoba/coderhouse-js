@@ -5,20 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Calculadora de Áreas</title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-    <div class="contenedor">
-        <h1>Calculadora de Áreas</h1>
-        <label for="operacion">Seleccione la operación:</label>
-        <select id="operacion">
-            <option value="cuadrado">Calcular área de un cuadrado</option>
-            <option value="rectangulo">Calcular área de un rectángulo</option>
-        </select>
-        <div id="inputs"></div>
-        <button id="calcularBtn" onclick="calcularArea()">Calcular</button>
-        <div id="resultado"></div>
-        <div id="historial"></div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center mb-4">Calculadora de Áreas</h1>
+                
+                <label for="operacion">Seleccione la operación:</label>
+                <select id="operacion" class="form-control mb-3">
+                    <option value="cuadrado">Calcular área de un cuadrado</option>
+                    <option value="rectangulo">Calcular área de un rectángulo</option>
+                </select>
+                
+                <div id="inputs" class="mb-3"></div>
+                
+                <button id="calcularBtn" class="btn btn-primary btn-block">Calcular</button>
+                
+                <div id="resultado" class="mt-4"></div>
+                <div id="historial" class="mt-4"></div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

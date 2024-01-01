@@ -1,0 +1,44 @@
+{
+  "historial": [
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 1
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 2
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 3
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 4
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 5
+    },
+    {
+      "operacion": "cuadrado",
+      "resultado": 1600,
+      "id": 6
+    },
+    {
+      "operacion": "cuadrado",
+      "resultado": 1600,
+      "id": 7
+    },
+    {
+      "operacion": "rectangulo",
+      "resultado": 750,
+      "id": 8
+    }
+  ]
+}
